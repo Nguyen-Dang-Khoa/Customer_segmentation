@@ -9,9 +9,6 @@ from shutil import which
 from time import sleep
 
 
-# # get URL
-# select_linked_in = driver.find_elements_by_css_selector("#Pivot204-Tab3 > span > span > span")
-# select_linked_in.click()
 
 
 
@@ -27,8 +24,9 @@ from time import sleep
  
  
 class Selenium_outlook:
-    
-
+    '''
+    get linked in URL by using outlook
+    '''
     def __init__(self, url):
         # specifies the path to the chromedriver.exe
         self.driver = webdriver.Chrome(executable_path=which("chromedriver"))
@@ -42,8 +40,7 @@ class Selenium_outlook:
 
     def outlook_signin(self, username, password):
         # sign in
-        log_in_button = self.driver.find_element_by_css_selector('body > header > div > aside > div > nav > ul > li:nth-child(2) > a')
-        log_in_button.click()
+        self.selector_click('body > header > div > aside > div > nav > ul > li:nth-child(2) > a')
 
         # input email
         username_loc = self.driver.find_element_by_css_selector('#i0116')
@@ -55,23 +52,28 @@ class Selenium_outlook:
         password_loc = self.driver.find_element_by_css_selector('#i0118')
         password_loc.send_keys(password)
         sleep(0.5)
-        pass_inter = self.driver.find_element_by_css_selector('#idSIButton9')
-        pass_inter.click()
+        self.selector_click('#idSIButton9')
 
         # Sign in yes button
-        stay_sign_in = self.driver.find_element_by_css_selector('#idSIButton9')
-        stay_sign_in.click()
+        self.selector_click('#idSIButton9')
         sleep(0.5)
 
     def contact_loop(self):
         # choose people contact
-        people_button = self.driver.find_element_by_css_selector('#app > div > div._3KAPMPOz8KsW24ooeUflK2 > div > div._1TpU2KF6f_EeQiytBaYj8I > div._25oA4qBLP_b6P080cw5s2H.css-43 > div._1_iewjAgd8BRIHH3zHMH1V > div > div > div:nth-child(3) > div > a > span')
-        people_button.click()
-
+        self.selector_click('#app > div > div._3KAPMPOz8KsW24ooeUflK2 > div > div._1TpU2KF6f_EeQiytBaYj8I > div._25oA4qBLP_b6P080cw5s2H.css-43 > div._1_iewjAgd8BRIHH3zHMH1V > div > div > div:nth-child(3) > div > a > span')
         ## loop though contact list
         # select first contact
-        first_contact = self.driver.find_element_by_css_selector(r'#HubPersonaId_AQQkADAwATNiZmYAZC0zMwBkYS1jNDQANS0wMAItMDAKABAA\/0L4nPVSf0WielUcdLGSkw\=\= > div > div._3qxq4FbPD_ovy_o1o8-N4E')
-        first_contact.click()
+        self.selector_click('#HubPersonaId_AQQkADAwATNiZmYAZC0zMwBkYS1jNDQANS0wMAItMDAKABAA\/0L4nPVSf0WielUcdLGSkw\=\= > div > div._3qxq4FbPD_ovy_o1o8-N4E')
+        # select LinkedIn button
+        self.xpath_click('/html/body/div[2]/div/div[2]/div/div[3]/div/div[2]/div/div[2]/div/div/div/div/div[1]/div/div/div/button[4]')
+
+
+    def selector_click(self, css_selector):
+        self.driver.find_element_by_css_selector(css_selector).click()
+
+    def xpath_click(self, xpath):
+        self.driver.find_element_by_xpath(xpath).click()
+
 
 
 if __name__ == '__main__':
@@ -81,5 +83,6 @@ if __name__ == '__main__':
     outlook = Selenium_outlook('https://outlook.live.com/owa/')
     # outlook.get_site_info()
     outlook.outlook_signin(outlook_account, outlook_password)
+    outlook.contact_loop()
     # Close driver
-    # outlook.driver.close()
+    outlook.driver.close()
