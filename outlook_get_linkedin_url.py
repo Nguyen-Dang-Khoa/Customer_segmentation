@@ -7,21 +7,6 @@ from selenium.webdriver.common.keys import Keys #  [Keys.LEFT, Keys.DOWN, Keys.R
 
 from shutil import which
 from time import sleep
-
-
-
-
-
-# #try to get URL of linke tab
-# wait_variable = WebDriverWait(driver, 15)
-# links = wait_variable.until(expected_conditions.visibility_of_any_elements_located((By.TAG_NAME, "a")))
-# print(len(links))
-# for link in links:
-#     print(link.text)
-# wait_variable.until(expected_conditions.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "See full profile on LinkedIn"))).click()
-
-
- 
  
 class Selenium_outlook:
     '''
