@@ -1,7 +1,7 @@
 # ### 0. Packages Installation!
 # !pip install selenium
 # !pip install parsel
-# **Install chrome**
+# **Install chrome**s
 # !apt-get update # to update ubuntu to correctly run apt install
 # !apt install -y chromium-chromedriver
 
