@@ -1,0 +1,45 @@
+# Cleanning movement data
+
+Data information:
+Data columns (total 8 columns):
+ #   Column               Non-Null Count    Dtype  
+---  ------               --------------    -----  
+ 0   ad_id                1000000 non-null  object 
+ 1   latitude             1000000 non-null  float64 ()
+ 2   longitude            1000000 non-null  float64
+ 3   horizontal_accuracy  1000000 non-null  float64
+ 4   id_type              1000000 non-null  object 
+ 5   utc_timestamp        1000000 non-null  int64  (update by ad_id)
+ 6   geo_hash             1000000 non-null  object (check correction, )
+ 7   ip_address           629854 non-null   object (Check fake ID, unknown, )
+dtypes: float64(3), int64(1), object(4)
+
+=> We need undertand the meaning of column id_type, utc_timestamp, geo_hash, ip_address.
+
+#1. Remove duplicate or irrelevant observation.
+	+ All columns from 0 to 6 is full with data.
+	+ Ip_address contain Null values. We subsitude null value with 0.
+	+ Duplicate rows: remove douplicated row, create one more column store the number of douplicate row. 
+	+ ad_id is unnecessary to input to a model. This will be deleted when input to train a model.
+	
+#2. Fix the data-structure
+	
+	+ id_type, geo_hash, ip_address: change Object datatype to numberic data.
+	   - id_type: using one hot encode (there are only 2 types)
+	   - geo_hash: Problem, there are many diferent values. If we understand the meaning of the column
+		(It may show the combination of latitude and longtidue). We can delete this column when the
+		information is stored in longtitude and latitude columns.
+	   - ip_address: remove the dots, translate text to number.
+
+#3: Filter unwanted outliers:
+	+ Count the numbers of outliers, then we check the ourlier to decide to remove or not. The ourlier in the movement is not very importance because it shows the coordinate of position.
+	However some special location shoud me recognize in another way (big city, remote location...)
+
+
+#4: Handle missing data
+	+ No missing data present. 
+
+
+? question to the customer:
+Do data collect with high accuracy? (data is close to the true values or not.)
+Provide data discription.
